@@ -117,31 +117,25 @@ def cmd_print(parts):
 
 #IF-THEN STATEMENT LOGIC
 def cmd_if_otherwise(parts):
-    if len(parts) < 7 or parts[4] != Commands.THEN.name:
+    if len(parts) < 5 or parts[4] != Commands.THEN.name:
         print("Syntax error in IF statement")
         return False
     
     then_index = parts.index(Commands.THEN.name)
-    otherwise_index = parts.index(Commands.OTHERWISE.name)
+    otherwise_index = parts.index(Commands.OTHERWISE.name) if Commands.OTHERWISE.name in parts else None
 
-    if then_index < 3 or otherwise_index <= then_index + 1:
-        print("Syntax error in IF-OTHERWISE statement")
-        return False
-    
     var1 = parts[1]
     op = parts[2]
     var2 = parts[3]
-    action = parts[5:]
 
     if var1 not in numbers or var2 not in numbers:
         print("Variable not found in IF statement")
         return True
-    
+
     val1 = int(numbers[var1])
     val2 = int(numbers[var2])
 
     ops = {
-
         Operators.M.value: lambda a, b: a > b,
         Operators.L.value: lambda a, b: a < b,
         Operators.E.value: lambda a, b: a == b,
@@ -153,15 +147,19 @@ def cmd_if_otherwise(parts):
     if op not in ops:
         print("Invalid operator for IF statement")
         return False
-    
+
     condition_true = ops[op](val1, val2)
 
-    then_command = parts[then_index + 1 : otherwise_index]
-    otherwise_command = parts[otherwise_index + 1:]
+    if otherwise_index is not None:
+        then_command = parts[then_index + 1 : otherwise_index]
+        otherwise_command = parts[otherwise_index + 1:]
+    else:
+        then_command = parts[then_index + 1:]
+        otherwise_command = None
 
     if condition_true:
         handle_command(then_command)
-    else:
+    elif otherwise_command:
         handle_command(otherwise_command)
     
 def handle_command(parts):

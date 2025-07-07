@@ -26,14 +26,14 @@ SimpleLang is extremely simple python-based language. Further I'll cover every c
     >>> `PRINT X`
 
     7.1. **ALL** - used when user wants to print out all variables, inlcluding names and values
-        >>> `PRINT ALL`
+   >>> `PRINT ALL`
 8. **IF** - never used alone
 
     8.1 **THEN** - used in IF-THEN statement
-        >>> `IF X < Y THEN ADD X Y`
+   >>> `IF X < Y THEN ADD X Y`
 
     8.2 **OTHERWISE** - used in IF-THEN-OTHERWISE statement
-        >>> `IF X < Y THEN ADD X Y OTHERWISE SUB X Y`
+   >>> `IF X < Y THEN ADD X Y OTHERWISE SUB X Y`
 
 ## Operators
 
